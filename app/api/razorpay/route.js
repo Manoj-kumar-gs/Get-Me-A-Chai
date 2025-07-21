@@ -31,7 +31,6 @@ export async function POST(req) {
     { done: true },
     { new: true, runValidators: true }
   );
-  console.log(updatedPayment.name);
   const u = updatedPayment.name;
   const v = u.replaceAll("%20","_")
 
@@ -41,12 +40,10 @@ export async function POST(req) {
 export async function GET(req) {
     const {searchParams} = new URL(req.url);
     const order = searchParams.get('order') 
-    console.log("order:", order);
     await dbConnect();
     const payment = await Payment.findOne({
         oid: order
     });
-    // console.log("paymentsUser: ", payment.done);
     if(!payment?.done) {
       return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
     }

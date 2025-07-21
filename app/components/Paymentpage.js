@@ -161,8 +161,9 @@ const Paymentpage = ({ username }) => {
                     </p>
 
                 </div>
+
                 <div className='flex md:flex-row flex-col justify-center items-center gap-2 my-10 w-[80%] mx-auto'>
-                    <div className=' bg-gray-900 w-full md:w-1/2 h-[330px] rounded-lg px-4 mb-7 md:pb-6 flex flex-col gap-2 overflow-auto relative'>
+                    <div className=' bg-gray-900 w-full md:w-1/2 h-[330px] rounded-lg px-4 md:pb-6 flex flex-col gap-2 overflow-auto relative'>
                         <h3 className='text-[20px] font-bold sticky top-0 bg-gray-900/60 backdrop-blur-md z-10 p-2 rounded-md pt-6'>Supportors</h3>
                         {supportors.length == 0 ? <p className='text-sm text-gray-400'>No supportors yet</p> : supportors.map((supportor) => (
                             <div key={supportor._id} className='flex justify-start items-center gap-4 px-2 pt-1 pb-3'>

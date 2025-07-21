@@ -20,7 +20,6 @@ export default function Dashboardform() {
     const dashInfo = async () => {
       const info = await fetch(`http://localhost:3000/api/userinfo?email=${email}`)
       const parsedInfo = await info.json();
-      console.log("dashinfo: ", parsedInfo);
       setFormData(prev => ({
         name: parsedInfo.name || "",
         email: parsedInfo.email || "",

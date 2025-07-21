@@ -5,7 +5,6 @@ import Username from "@/app/[username]/page";
 export async function POST(req) {
     await dbConnect();
     const body = await req.json();
-    console.log("updatedUser = ", body.email);
     const findUser = await User.findOne({email:body.email})
 
     if (!findUser) {
@@ -15,7 +14,7 @@ export async function POST(req) {
                 status: 400,
                 headers: { "content-type": "application/json" },
             }
-        );
+        ); 
     }
     
     await User.updateOne({email:body.email},{
