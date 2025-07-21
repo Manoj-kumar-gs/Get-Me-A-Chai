@@ -1,6 +1,7 @@
 import Razorpay from "razorpay";
 import dbConnect from "@/utils/dbConnect";
 import Payment from "@/models/Payment";
+import User from "@/models/User";
 
 export async function POST(req) {
   try {
@@ -9,9 +10,18 @@ export async function POST(req) {
 
     await dbConnect();
 
+    const user = await User.findOne({ username: to_username });
+
+    if (!user?.razorpayKeyId || !user?.razorpayKeySecret) {
+      return new Response(
+        JSON.stringify({ error: "User hasn't configured Razorpay" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     const instance = new Razorpay({
-      key_id: process.env.KEY_ID,
-      key_secret: process.env.KEY_SECRET,
+      key_id: user.razorpayKeyId,
+      key_secret: user.razorpayKeySecret,
     });
 
     const options = {

@@ -14,20 +14,26 @@ export default function Dashboardform() {
     profilePic: "",
     coverPic: "",
     phoneNo: "",
+    razorpayKeyId: "",
+    razorpaySecret: "",
   });
+
+  const [razorpaySecret, setRazorpaySecret] = useState(false);
 
   useEffect(() => {
     const dashInfo = async () => {
       const info = await fetch(`http://localhost:3000/api/userinfo?email=${email}`)
       const parsedInfo = await info.json();
-      setFormData(prev => ({
-        name: parsedInfo.name || "",
-        email: parsedInfo.email || "",
-        username: parsedInfo.username || "",
-        profilePic: parsedInfo.profilePic || "",
-        coverPic: parsedInfo.coverPic || "",
-        phoneNo: parsedInfo.phoneNo || "",
-      }));
+      setFormData({
+        name: parsedInfo?.name ?? "",
+        email: parsedInfo?.email ?? "",
+        username: parsedInfo?.username ?? "",
+        profilePic: parsedInfo?.profilePic ?? "",
+        coverPic: parsedInfo?.coverPic ?? "",
+        phoneNo: parsedInfo?.phoneNo ?? "",
+        razorpayKeyId: parsedInfo?.razorpayKeyId ?? "",
+        razorpaySecret: parsedInfo?.razorpaySecret ?? "",
+      });
     }
     dashInfo();
   }, [session])
@@ -159,6 +165,30 @@ export default function Dashboardform() {
               className="w-full border rounded-full py-1 px-4 text-[14px] bg-gray-900 text-white"
             />
           </div>
+          <div>
+            <label className="block font-sm mb-1">Razorpay Key ID</label>
+            <input
+              name="razorpayKeyId"
+              type="text"
+              value={formData.razorpayKeyId}
+              onChange={handleChange}
+              className="w-full border rounded-full py-1 px-4 text-[14px] bg-gray-900 text-white"
+            />
+          </div>
+          <div>
+            <label className="block font-sm mb-1">Razorpay Secret</label>
+            <div className="flex items-center justify-center gap-2">
+            <input
+              name="razorpaySecret"
+              type={razorpaySecret ? "text" : "password"} // Toggle visibility
+              value={formData.razorpaySecret}
+              onChange={handleChange}
+              className="w-full border rounded-full py-1 px-4 text-[14px] bg-gray-900 text-white"
+            />
+            <p className="text-xs mt-1 text-blue-500 cursor-pointer" onClick={() => setRazorpaySecret(!razorpaySecret)}> {razorpaySecret ? "Hide" : "Show"} </p>
+          </div>
+          </div>
+
           <div className="pb-6 pt-2">
             <button
               className="w-full relative inline-flex h-9 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-150"

@@ -21,6 +21,13 @@ const userSchema = new Schema({
   phoneNo: {
     type: String,
   },
+  razorpayKeyId: {
+  type: String,
+},
+razorpaySecret: {
+  type: String,
+},
+
 }, { timestamps: true });
 
 export default mongoose.models.User || model("User", userSchema);
