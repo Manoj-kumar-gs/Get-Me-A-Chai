@@ -3,6 +3,7 @@ import React, { use, useEffect, useState } from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import Script from 'next/script'
 import { ToastContainer, toast } from 'react-toastify';
+import Image from 'next/image';
 
 const Paymentpage = ({ username }) => {
     const [paymentForm, setpaymentForm] = useState({ name: "", message: "", amount: "" });
@@ -34,7 +35,7 @@ const Paymentpage = ({ username }) => {
             fetchUserdata();
         }
 
-    }, [session])
+    }, [email])
 
     const pay = async (e, amount) => {
     try {
@@ -150,8 +151,8 @@ const Paymentpage = ({ username }) => {
                     theme="colored"
                 />
                 <div className='relative flex flex-col justify-center items-center'>
-                    <img src={coverpic ? coverpic : coverimg} className='w-full h-[45vh] object-cover' alt="cover pic" srcSet="" />
-                    <img className='w-32 h-32 rounded-full absolute left-[37%] md:left-[46%] top-[81%] border object-cover' src={profilepic ? profilepic : profileimg} alt="profile pic" srcSet="" />
+                    <Image src={coverpic ? coverpic : coverimg} className='w-full h-[45vh] object-cover' alt="cover pic" />
+                    <Image className='w-32 h-32 rounded-full absolute left-[37%] md:left-[46%] top-[81%] border object-cover' src={profilepic ? profilepic : profileimg} alt="profile pic" />
                 </div>
                 <div className='flex flex-col justify-center items-center gap-2 mt-20'>
                     <h2 className=' text-2xl font-bold text-white'>@{username}</h2>
@@ -167,9 +168,9 @@ const Paymentpage = ({ username }) => {
                         <h3 className='text-[20px] font-bold sticky top-0 bg-gray-900/60 backdrop-blur-md z-10 p-2 rounded-md pt-6'>Supportors</h3>
                         {supportors.length == 0 ? <p className='text-sm text-gray-400'>No supportors yet</p> : supportors.map((supportor) => (
                             <div key={supportor._id} className='flex justify-start items-center gap-4 px-2 pt-1 pb-3'>
-                                <span><img className='w-5 rounded-full' src="https://www.w3schools.com/howto/img_avatar.png" alt="supportorsImg" srcSet="" /></span>
+                                <span><Image className='w-5 rounded-full' src="https://www.w3schools.com/howto/img_avatar.png" alt="supportorsImg" /></span>
                                 <p className='text-sm'>
-                                    <span className='font-bold w-fit'>{supportor.name}</span> donated <span className='font-bold'>₹{supportor.amount}</span> with a message, "{supportor.message}"</p>
+                                    <span className='font-bold w-fit'>{supportor.name}</span> donated <span className='font-bold'>₹{supportor.amount}</span> with a message, {supportor.message}</p>
                             </div>
                         ))}
                     </div>

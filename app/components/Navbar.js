@@ -3,6 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useSession, signIn, signOut } from "next-auth/react"
 import Dropdown from './Dropdown'
+import Image from 'next/image'
 
 
 const Navbar = () => {
@@ -15,12 +16,12 @@ const Navbar = () => {
                 <div className='text-white text-2xl font-semibold'>
                     getmeachai
                 </div>
-                <img className='w-11 h-11 md:w-14 md:h-14' src="/tea.gif" alt="" srcSet="" />
+                <Image className='w-11 h-11 md:w-14 md:h-14' src="/tea.gif" alt="" srcSet="" />
             </Link>
             {session?(
            <div className='text-white flex justify-center items-center gap-2'>
            <Dropdown />
-           <img className='w-8 h-8 rounded-full' src={img} alt="accountImage" srcSet="" />
+           <Image className='w-8 h-8 rounded-full' src={img} alt="accountImage" />
        </div>
        ):(
             <div className='text-white'>
@@ -35,7 +36,7 @@ const Navbar = () => {
                             Login
                         </span>
                     </button>
-                    <img className='w-8 h-8 rounded-full' src={img} alt="accountimg" srcSet="" />
+                    <Image className='w-8 h-8 rounded-full' src={img} alt="accountimg" />
                 </div>
 
                 </Link>
