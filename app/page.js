@@ -9,7 +9,7 @@ export default function Home() {
           <h1 className='text-white text-4xl font-bold'>
             Buy Me A Chai
           </h1>
-          <Image className='w-15 h-15' src="/tea.gif" alt="Chai animation" />
+          <Image width={100} height={100} src="/tea.gif" alt="Chai animation" />
         </div>
         <p className="text-center mx-5">Hey creators! Turn your followers into supporters. Start your crowdfunding journey now!</p>
         <div className="flex justify-center items-center gap-4">
@@ -43,18 +43,18 @@ export default function Home() {
         <h2 className='text-white text-2xl font-bold'>Your Fans Can Buy You A Chai</h2>
         <div className="flex w-full justify-around items-center gap-4 px-3">
           <div className="flex flex-col justify-center items-center gap-3 w-[32%]">
-            <Image className="w-15 h-15 bg-gray-500 rounded-full" src="/man.gif" alt="Supporter icon" />
+            <Image className="bg-gray-500 rounded-full" width={60} height={60} src="/man.gif" alt="Supporter icon" />
             <h3 className="font-bold">Recieve Support</h3>
             <p className="text-[13px] text-center"> Let your fans show their love! Share your link and start receiving chai (or cash) from your supporters.</p>
           </div>
           <div className="flex flex-col justify-center items-center gap-3 w-[32%]">
-            <Image className="w-15 h-15 bg-gray-500 rounded-full" src="/coin.gif" alt="Coin icon" />
+            <Image className="bg-gray-500 rounded-full" width={60} height={60} src="/coin.gif" alt="Coin icon" />
             <h3 className="font-bold">Earn Tips</h3>
             <p className="text-[13px] text-center">  Turn appreciation into income — receive small tips or generous support directly from your community.
             </p>
           </div>
           <div className="flex flex-col justify-center items-center gap-3 w-[32%]">
-            <Image className="w-15 h-15 bg-gray-500 rounded-full" src="/group.gif" alt="Group icon" />
+            <Image className="bg-gray-500 rounded-full" width={60} height={60} src="/group.gif" alt="Group icon" />
             <h3 className="font-bold">Grow Your Community</h3>
             <p className="text-[13px] text-center"> Engage better with your audience and build meaningful relationships with your most loyal supporters.</p>
           </div>

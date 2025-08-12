@@ -31,101 +31,101 @@ const Paymentpage = ({ username }) => {
             setprofilepic(data.profilePic)
             setcoverpic(data.coverPic)
         }
-        if(email){
+        if (email) {
             fetchUserdata();
         }
 
     }, [email])
 
     const pay = async (e, amount) => {
-    try {
-        const response = await fetch('http://localhost:3000/api/useractions/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                amount,
-                to_username: username,
-                ...(paymentForm.name && paymentForm.message ? { paymentForm } : {}),
-            }),
-        });
+        try {
+            const response = await fetch('http://localhost:3000/api/useractions/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    amount,
+                    to_username: username,
+                    ...(paymentForm.name && paymentForm.message ? { paymentForm } : {}),
+                }),
+            });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error("Payment error response:", errorText);
-            return alert("please enter valid details");
-        }
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("Payment error response:", errorText);
+                return alert("please enter valid details");
+            }
 
-        const order = await response.json();
-        setpaymentForm({ name: "", message: "", amount: "" });
+            const order = await response.json();
+            setpaymentForm({ name: "", message: "", amount: "" });
 
-        const options = {
-            key: "rzp_test_EzImtY61Dophh8",
-            amount: order.amount,
-            currency: "INR",
-            name: "Get Me A Chai",
-            description: "Test Transaction",
-            image: "https://example.com/your_logo",
-            order_id: order.id,
-            prefill: {
-                name: paymentForm.name || "Anonymous",
-                email: session?.user?.email || "test@example.com",
-                contact: "9000090000"
-            },
-            notes: {
-                address: "User Address"
-            },
-            theme: {
-                color: "#3399cc"
-            },
-            handler: async function (response) {
-                try {
-                    const verifyRes = await fetch("/api/razorpay", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded"
-                        },
-                        body: new URLSearchParams({
-                            razorpay_payment_id: response.razorpay_payment_id,
-                            razorpay_order_id: response.razorpay_order_id,
-                            razorpay_signature: response.razorpay_signature,
-                        }),
-                    });
-
-                    if (verifyRes.ok) {
-                        toast.success('Payment Successful 🎉', {
-                            position: "top-right",
-                            autoClose: 2000,
-                            hideProgressBar: false,
-                            closeOnClick: false,
-                            pauseOnHover: true,
-                            draggable: true,
-                            theme: "dark",
+            const options = {
+                key: "rzp_test_EzImtY61Dophh8",
+                amount: order.amount,
+                currency: "INR",
+                name: "Get Me A Chai",
+                description: "Test Transaction",
+                image: "https://example.com/your_logo",
+                order_id: order.id,
+                prefill: {
+                    name: paymentForm.name || "Anonymous",
+                    email: session?.user?.email || "test@example.com",
+                    contact: "9000090000"
+                },
+                notes: {
+                    address: "User Address"
+                },
+                theme: {
+                    color: "#3399cc"
+                },
+                handler: async function (response) {
+                    try {
+                        const verifyRes = await fetch("/api/razorpay", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            body: new URLSearchParams({
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_signature: response.razorpay_signature,
+                            }),
                         });
-                        window.location.href = `/${username}?paymentDone=thanks❤️${username.replaceAll(" ", "_")}`;
-                    } else {
-                        toast.error('Payment verification failed', {
+
+                        if (verifyRes.ok) {
+                            toast.success('Payment Successful 🎉', {
+                                position: "top-right",
+                                autoClose: 2000,
+                                hideProgressBar: false,
+                                closeOnClick: false,
+                                pauseOnHover: true,
+                                draggable: true,
+                                theme: "dark",
+                            });
+                            window.location.href = `/${username}?paymentDone=thanks❤️${username.replaceAll(" ", "_")}`;
+                        } else {
+                            toast.error('Payment verification failed', {
+                                position: "top-right",
+                                theme: "dark",
+                            });
+                        }
+                    } catch (err) {
+                        console.error("Error verifying payment:", err);
+                        toast.error('Error verifying payment', {
                             position: "top-right",
                             theme: "dark",
                         });
                     }
-                } catch (err) {
-                    console.error("Error verifying payment:", err);
-                    toast.error('Error verifying payment', {
-                        position: "top-right",
-                        theme: "dark",
-                    });
                 }
-            }
-        };
+            };
 
-        const rzp1 = new Razorpay(options);
-        rzp1.open();
+            const rzp1 = new Razorpay(options);
+            rzp1.open();
 
-    } catch (err) {
-        console.error("Unexpected error during payment:", err);
-        alert("Unexpected error. Check console.");
-    }
-};
+        } catch (err) {
+            console.error("Unexpected error during payment:", err);
+            alert("Unexpected error. Check console.");
+        }
+    };
 
 
     const handleChange = (e) => {
@@ -151,14 +151,27 @@ const Paymentpage = ({ username }) => {
                     theme="colored"
                 />
                 <div className='relative flex flex-col justify-center items-center'>
-                    <Image src={coverpic ? coverpic : coverimg} className='w-full h-[45vh] object-cover' alt="cover pic" />
-                    <Image className='w-32 h-32 rounded-full absolute left-[37%] md:left-[46%] top-[81%] border object-cover' src={profilepic ? profilepic : profileimg} alt="profile pic" />
+                    <Image
+                        src={coverpic ? coverpic : coverimg}
+                        width={1920}
+                        height={540}
+                        className="w-full h-[45vh] object-cover"
+                        alt="cover pic"
+                    />
+
+                    <Image
+                        src={profilepic ? profilepic : profileimg}
+                        width={128}
+                        height={128}
+                        className="w-32 h-32 rounded-full absolute left-[37%] md:left-[46%] top-[81%] border object-cover"
+                        alt="profile pic"
+                    />
                 </div>
                 <div className='flex flex-col justify-center items-center gap-2 mt-20'>
                     <h2 className=' text-2xl font-bold text-white'>@{username}</h2>
                     <p className='text-center text-shadow-md text-gray-300'>Lets help {username} to get a chai!</p>
                     <p className='text-center text-gray-300'>
-                       supportors <span className='font-bold'> {supportors.length}</span> . amount raised <span className='font-bold'>₹{supportors.reduce((acc, supportor) => acc + parseInt(supportor.amount), 0)}</span>
+                        supportors <span className='font-bold'> {supportors.length}</span> . amount raised <span className='font-bold'>₹{supportors.reduce((acc, supportor) => acc + parseInt(supportor.amount), 0)}</span>
                     </p>
 
                 </div>
@@ -183,7 +196,7 @@ const Paymentpage = ({ username }) => {
                             <div className='flex justify-center items-center gap-2'>
                                 <button
                                     className="relative inline-flex w-full h-9 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-150"
-                                    onClick={(e) => pay(e,paymentForm.amount)} disabled={paymentForm.name?.length<1 || paymentForm.message?.length<1}>
+                                    onClick={(e) => pay(e, paymentForm.amount)} disabled={paymentForm.name?.length < 1 || paymentForm.message?.length < 1}>
                                     <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)] " />
                                     <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-7 text-sm font-medium text-white backdrop-blur-3xl ">
                                         pay
@@ -192,9 +205,9 @@ const Paymentpage = ({ username }) => {
                             </div>
                         </div>
                         <div className=' flex justify-start items-center gap-2'>
-                            <div className='bg-slate-800 px-3 py-1.5 rounded-full hover:cursor-pointer text-sm' onClick={(e) => pay(e,10)}>pay ₹10</div>
-                            <div className='bg-slate-800 px-3 py-1.5 rounded-full hover:cursor-pointer text-sm' onClick={(e) => pay(e,20)}>pay ₹20</div>
-                            <div className='bg-slate-800 px-3 py-1.5 rounded-full hover:cursor-pointer text-sm' onClick={(e) => pay(e,30)}>pay ₹30</div>
+                            <div className='bg-slate-800 px-3 py-1.5 rounded-full hover:cursor-pointer text-sm' onClick={(e) => pay(e, 10)}>pay ₹10</div>
+                            <div className='bg-slate-800 px-3 py-1.5 rounded-full hover:cursor-pointer text-sm' onClick={(e) => pay(e, 20)}>pay ₹20</div>
+                            <div className='bg-slate-800 px-3 py-1.5 rounded-full hover:cursor-pointer text-sm' onClick={(e) => pay(e, 30)}>pay ₹30</div>
                         </div>
                     </div>
                 </div>

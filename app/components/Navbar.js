@@ -16,12 +16,12 @@ const Navbar = () => {
                 <div className='text-white text-2xl font-semibold'>
                     getmeachai
                 </div>
-                <Image className='w-11 h-11 md:w-14 md:h-14' src="/tea.gif" alt="" srcSet="" />
+                <Image width={44} height={44} src="/tea.gif" alt="" srcSet="" />
             </Link>
             {session?(
            <div className='text-white flex justify-center items-center gap-2'>
            <Dropdown />
-           <Image className='w-8 h-8 rounded-full' src={img} alt="accountImage" />
+           <Image width={44} height={44} src={img} alt="accountImage" />
        </div>
        ):(
             <div className='text-white'>
@@ -36,7 +36,7 @@ const Navbar = () => {
                             Login
                         </span>
                     </button>
-                    <Image className='w-8 h-8 rounded-full' src={img} alt="accountimg" />
+                    <Image width={32} height={32} src={img} alt="accountimg" />
                 </div>
 
                 </Link>
