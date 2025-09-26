@@ -72,6 +72,7 @@ const Paymentpage = ({ username }) => {
                     contact: "9000090000"
                 },
                 notes: {
+                    
                     address: "User Address"
                 },
                 theme: {
