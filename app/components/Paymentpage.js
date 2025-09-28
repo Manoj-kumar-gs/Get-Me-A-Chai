@@ -13,7 +13,7 @@ const Paymentpage = ({ username }) => {
 
     const { data: session } = useSession();
     const profileimg = session?.user?.image || "https://www.w3schools.com/howto/img_avatar.png";
-    const coverimg = "https://c10.patreonusercontent.com/4/patreon-media/p/campaign/4842667/452146dcfeb04f38853368f554aadde1/eyJ3IjoxNjAwLCJ3ZSI6MX0%3D/18.gif?token-time=1748995200&token-hash=PII8uE5d9cF__tMhhAsgUcejp0XUEAo4wDFfuH2yPbs%3D"
+    const coverimg = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTkCdH1-XV3kvJVXhKp6k5Cn31Ca9znOlY1O9LXlmcxJXtphJFuXx9OKYsf6JxBmNfksJAFxWBZJ2BZ6nBqEhwde2PUYRIW2wnF-qtFvb0h"
     const email = session?.user?.email;
     useEffect(() => {
         const fetchpaymentData = async () => {
@@ -72,7 +72,7 @@ const Paymentpage = ({ username }) => {
                     contact: "9000090000"
                 },
                 notes: {
-                    
+
                     address: "User Address"
                 },
                 theme: {
