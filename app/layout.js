@@ -1,5 +1,5 @@
 import "./globals.css";
-import Navbaar from "./components/Navbar";
+import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SessionWrapper from "./components/SessionWrapper";
 
@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="[background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]">
         <SessionWrapper>
-          <Navbaar />
+          <Navbar />
           <div className=" min-h-[83.6vh] text-white box-border">
             {children}
           </div>

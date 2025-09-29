@@ -21,7 +21,9 @@ const Navbar = () => {
             {session ? (
                 <div className='text-white flex justify-center items-center gap-2'>
                     <Dropdown />
-                    <Image width={40} height={40} src={img} alt="accountImage" className='rounded-full' onClick={()=>"/dashboard"}/>
+                    <Link href={"/dashboard"}>
+                        <Image width={40} height={40} src={img} alt="accountImage" className='rounded-full' />
+                    </Link>
                 </div>
             ) : (
                 <div className='text-white'>

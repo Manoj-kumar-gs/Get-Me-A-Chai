@@ -12,9 +12,10 @@ const Dropdown = () => {
 
 
   useEffect(() => {
+    const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
     if (!session?.user?.email) return;
   const fetchinfo = async () => {
-    const fetchdata = await fetch('http://localhost:3000/api/userinfo', {
+    const fetchdata = await fetch(`${BASE_URL}/api/userinfo`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: session.user.email })

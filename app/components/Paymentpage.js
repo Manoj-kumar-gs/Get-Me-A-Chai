@@ -10,6 +10,7 @@ const Paymentpage = ({ username }) => {
     const [supportors, setsupportors] = useState([]);
     const [profilepic, setprofilepic] = useState(null);
     const [coverpic, setcoverpic] = useState(null);
+    const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
     const { data: session } = useSession();
     const profileimg = session?.user?.image || "https://www.w3schools.com/howto/img_avatar.png";
@@ -17,7 +18,7 @@ const Paymentpage = ({ username }) => {
     const email = session?.user?.email;
     useEffect(() => {
         const fetchpaymentData = async () => {
-            const res = await fetch(`http://localhost:3000/api/paymentinfo`);
+            const res = await fetch(`${BASE_URL}/api/paymentinfo`);
             const data = await res.json();
             setsupportors(data);
         }
@@ -25,8 +26,9 @@ const Paymentpage = ({ username }) => {
     }, [])
 
     useEffect(() => {
+        const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
         const fetchUserdata = async () => {
-            const res = await fetch(`http://localhost:3000/api/userinfo?email=${email}`)
+            const res = await fetch(`${BASE_URL}/api/userinfo?email=${email}`)
             const data = await res.json();
             setprofilepic(data.profilePic)
             setcoverpic(data.coverPic)
@@ -39,7 +41,7 @@ const Paymentpage = ({ username }) => {
 
     const pay = async (e, amount) => {
         try {
-            const response = await fetch('http://localhost:3000/api/useractions/', {
+            const response = await fetch(`${BASE_URL}/api/useractions/`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -52,7 +54,7 @@ const Paymentpage = ({ username }) => {
             if (!response.ok) {
                 const errorText = await response.text();
                 console.error("Payment error response:", errorText);
-                return alert("please enter valid details");
+                return alert("Account owner has not set Razorpay keys.");
             }
 
             const order = await response.json();

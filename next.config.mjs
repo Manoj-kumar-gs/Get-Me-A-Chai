@@ -22,6 +22,11 @@ const nextConfig = {
         hostname: 'encrypted-tbn1.gstatic.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        pathname: '/**',
+      },
     ],
   },
 };

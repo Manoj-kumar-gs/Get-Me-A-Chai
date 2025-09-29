@@ -19,10 +19,11 @@ export default function Dashboardform() {
   });
 
   const [razorpaySecret, setRazorpaySecret] = useState(false);
+  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
   useEffect(() => {
     const dashInfo = async () => {
-      const info = await fetch(`http://localhost:3000/api/userinfo?email=${email}`)
+      const info = await fetch(`${BASE_URL}/api/userinfo?email=${email}`);
       const parsedInfo = await info.json();
       setFormData({
         name: parsedInfo?.name ?? "",
@@ -44,7 +45,7 @@ export default function Dashboardform() {
 
   const handleSubmit = async (e) => {
     try {
-      const updatedUser = await fetch("http://localhost:3000/api/updateuser", {
+      const updatedUser = await fetch(`${BASE_URL}/api/updateuser`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),
